@@ -1,20 +1,11 @@
-require('dotenv').config()
-const express = require('express')
+require('dotenv').config();
+const express = require('express');
 const mongoose = require("mongoose");
-const swaggerUi = require('swagger-ui-express')
+const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger-output.json');
 
-// const swaggerUi = require('swagger-ui-express')
-// const swaggerDocument = require('./swagger-output.json');
-
-//Routers
-// const loginRouter = require("./src/modules/login/login.routes");
-// const reclamoRouter = require("./src/modules/claim/claim.routes");
+// Routers
 const usuarioRouter = require("./src/modules/user/user.routes");
-// const areaRouter = require("./src/modules/area/area.routes");
-// const claimTypeRoute = require("./src/modules/claimType/claimType.routes");
-// const auditRoute = require("./src/modules/audit/audit.routes");
-// const notifyRoute = require("./src/modules/notify/notify.routes");
 
 // Secure setup
 const { expressjwt: jwt } = require('express-jwt');
@@ -22,9 +13,8 @@ const jwksRsa = require('jwks-rsa');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
-const app = express()
-const port = process.env.PORT
-
+const app = express();
+const port = process.env.PORT;
 
 // Enable CORS
 app.use(cors());
@@ -35,22 +25,21 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 
-
-mongoose.connect(
-  process.env.DB_RECLAMO, { useNewUrlParser: true, useUnifiedTopology: true }
-);
+mongoose.connect(process.env.BDURL)
+  .then(() => {
+    console.log("MongoDB connected");
+  })
+  .catch(err => {
+    console.error("Error connecting to MongoDB:", err);
+    process.exit(1); // Exit the process if MongoDB connection fails
+  });
 
 app.get("/", async (request, response) => {
-      return response.send("Beckend reclamos node js express");
+  return response.send("Backend reclamos node js express");
 });
+
 // Routers
-// app.use(loginRouter);
-// app.use(reclamoRouter);
 app.use(usuarioRouter);
-// app.use(areaRouter);
-// app.use(claimTypeRoute);
-// app.use(auditRoute);
-// app.use(notifyRoute);
 
 app.all('*', (req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
@@ -61,10 +50,13 @@ app.all('*', (req, res, next) => {
   res.header('Access-Control-Allow-Methods', 'HEAD,OPTIONS,GET,PUT,POST,DELETE');
   next();
 });
+
 var options = {
   explorer: true
 };
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument,options))
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
+
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+  console.log(`Example app listening on port ${port}`);
+});
