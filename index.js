@@ -6,6 +6,7 @@ const swaggerDocument = require('./swagger-output.json');
 
 // Routers
 const usuarioRouter = require("./src/modules/user/user.routes");
+const gamerRouter = require("./src/modules/gamer/gamer.routes");
 
 // Secure setup
 const { expressjwt: jwt } = require('express-jwt');
@@ -40,6 +41,7 @@ app.get("/", async (request, response) => {
 
 // Routers
 app.use(usuarioRouter);
+app.use(gamerRouter);
 
 app.all('*', (req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
