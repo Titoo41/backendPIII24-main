@@ -1,31 +1,26 @@
-const express = require("express");
-const userService = require("./user.service");
+const express = require('express');
+const userService = require('./user.service');
 
 const router = express.Router();
 
 // GET /api/user
-router.get("/api/user", async (req, res) => {
-  // #swagger.tags = ['Usuario']
+router.get('/', async (req, res) => {
   try {
-    params = JSON.parse(req.headers['params'])
-
-    let paginated = await userService.paginated(params)
+    const params = JSON.parse(req.headers['params']);
+    let paginated = await userService.paginated(params);
     return res.status(200).send(paginated);
-
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return res.status(500).send(error);
   }
 });
 
 // GET /api/user/:id
-router.get("/api/user/:id",  async (req, res) => {
-  // #swagger.tags = ['Usuario']
+router.get('/:id', async (req, res) => {
   try {
     const userId = req.params.id;
     const user = await userService.findOneById(userId);
     return res.status(200).send(user);
-
   } catch (error) {
     console.log(error);
     return res.status(500).send(error);
@@ -33,14 +28,11 @@ router.get("/api/user/:id",  async (req, res) => {
 });
 
 // POST /api/user
-router.post("/api/user", async (req, res) => {
-  // #swagger.tags = ['Usuario']
+router.post('/', async (req, res) => {
   try {
     const newUser = req.body;
-    console.log(newUser);
     const user = await userService.save(newUser);
     return res.status(201).send(user);
-
   } catch (error) {
     console.log(error);
     return res.status(500).send(error);
@@ -48,14 +40,12 @@ router.post("/api/user", async (req, res) => {
 });
 
 // PUT /api/user/:id
-router.put("/api/user/:id",  async (req, res) => {
-  // #swagger.tags = ['Usuario']
+router.put('/:id', async (req, res) => {
   try {
     const userId = req.params.id;
     const updatedUser = req.body;
     const user = await userService.update(userId, updatedUser);
     return res.status(200).send(user);
-
   } catch (error) {
     console.log(error);
     return res.status(500).send(error);
@@ -63,13 +53,11 @@ router.put("/api/user/:id",  async (req, res) => {
 });
 
 // DELETE /api/user/:id
-router.delete("/api/user/:id", async (req, res) => {
-  // #swagger.tags = ['Usuario']
+router.delete('/:id', async (req, res) => {
   try {
     const userId = req.params.id;
     await userService.remove(userId);
-    return res.status(200).send("Usuario eliminado correctamente.");
-
+    return res.status(200).send('Usuario eliminado correctamente.');
   } catch (error) {
     console.log(error);
     return res.status(500).send(error);
