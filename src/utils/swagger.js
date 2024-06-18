@@ -9,10 +9,10 @@ const doc = {
   host: 'localhost:' + process.env.PORT,
 };
 
-const outputFile = './src/utils/swagger-output.json'; // Asegúrate de que esta ruta es correcta
+const outputFile = './src/utils/swagger-output.json'; 
 const routes = [
-  "./src/modules/user/user.routes.js",  // Asegúrate de que estas rutas son correctas
-  "./src/modules/gamer/gamer.routes.js" // Asegúrate de que estas rutas son correctas
+  "./src/modules/user/user.routes.js",  
+  "./src/modules/gamer/gamer.routes.js" 
 ];
 
 swaggerAutogen(outputFile, routes, doc);

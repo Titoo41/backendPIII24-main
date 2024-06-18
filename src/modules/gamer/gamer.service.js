@@ -20,7 +20,7 @@ async function paginated(params) {
     .limit(perPage)
     .skip(perPage * page)
     .sort(sort)
-    .populate('user') // Populate the user field
+    .populate('user') 
     .exec();
   
   return pager.createPager(page, data, count, perPage);

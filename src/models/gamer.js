@@ -3,8 +3,8 @@ const Schema = mongoose.Schema;
 
 const gamerSchema = new mongoose.Schema({
   username: String,
-  games: [String], // Lista de juegos que el gamer juega
-  user: { type: Schema.Types.ObjectId, ref: 'User' } // Relación con el usuario
+  games: [String], 
+  user: { type: Schema.Types.ObjectId, ref: 'User' } 
 });
 
 const gamerModel = mongoose.model("Gamer", gamerSchema);
