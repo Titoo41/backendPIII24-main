@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node src/utils/swagger.js && node index.js",
     "swagger-autogen": "node src/utils/swagger.js"
   },
   "keywords": [],
