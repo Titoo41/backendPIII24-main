@@ -14,19 +14,6 @@ router.get('/', async (req, res) => {
     return res.status(500).send(error);
   }
 });
-
-// GET /api/user/:id
-router.get('/:id', async (req, res) => {
-  try {
-    const userId = req.params.id;
-    const user = await userService.findOneById(userId);
-    return res.status(200).send(user);
-  } catch (error) {
-    console.log(error);
-    return res.status(500).send(error);
-  }
-});
-
 // POST /api/user
 router.post('/', async (req, res) => {
   try {

@@ -1,3 +1,4 @@
+// index.js
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
@@ -6,7 +7,7 @@ const swaggerDocument = require('./swagger-output.json');
 
 // Routers
 const usuarioRouter = require('./src/modules/user/user.routes');
-const gamerRouter = require('./src/modules/gamer/gamer.routes');
+const gamerRouter = require('./src/modules/gamer/gamer.routes'); // Asegúrate de que esta línea esté presente
 
 // Secure setup (Comment out if not using authentication)
 const cors = require('cors');
@@ -22,8 +23,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// MongoDB connection
-mongoose.connect(process.env.BDURL)
+mongoose.connect(process.env.BDURL, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('MongoDB connected');
   })
@@ -38,7 +38,7 @@ app.get('/', async (req, res) => {
 
 // Routers with prefixes
 app.use('/api/user', usuarioRouter);
-app.use('/api/gamer', gamerRouter);
+app.use('/api/gamer', gamerRouter); // Asegúrate de que esta línea esté presente
 
 // CORS configuration
 app.all('*', (req, res, next) => {

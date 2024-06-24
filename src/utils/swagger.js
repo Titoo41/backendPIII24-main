@@ -7,12 +7,13 @@ const doc = {
     description: 'Aplicacion inicial de backend',
   },
   host: 'localhost:' + process.env.PORT,
+  schemes: ['http'],
 };
 
-const outputFile = './src/utils/swagger-output.json'; 
-const routes = [
-  "./src/modules/user/user.routes.js",  
-  "./src/modules/gamer/gamer.routes.js" 
+const outputFile = './swagger-output.json'; 
+const endpointsFiles = [
+  './src/modules/user/user.routes.js',
+  './src/modules/gamer/gamer.routes.js' // Asegúrate de que esta línea esté presente
 ];
 
-swaggerAutogen(outputFile, routes, doc);
+swaggerAutogen(outputFile, endpointsFiles, doc);

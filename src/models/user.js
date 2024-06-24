@@ -1,15 +1,16 @@
+
+
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
 
 const userSchema = new mongoose.Schema({
-  firtname: String,
+  firstname: String, // Asegúrate de que esté escrito correctamente
   lastname: String,
   email: String,
-  domicilio:String,
-  celular:String,
-  documento:String,
-  rol:String,
-  area:String,
+  domicilio: String,
+  celular: String,
+  documento: String,
+  rol: String,
+  area: String,
 });
 
 const userModel = mongoose.model("User", userSchema);

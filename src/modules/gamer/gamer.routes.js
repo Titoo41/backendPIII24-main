@@ -1,14 +1,13 @@
-
-
-const express = require("express");
-const gamerService = require("./gamer.service");
+// src/modules/gamer/gamer.routes.js
+const express = require('express');
+const gamerService = require('./gamer.service');
 
 const router = express.Router();
 
 // GET /api/gamer
-router.get("/api/gamer", async (req, res) => {
+router.get('/', async (req, res) => {
   try {
-    params = JSON.parse(req.headers['params']);
+    const params = JSON.parse(req.headers['params']);
     let paginated = await gamerService.paginated(params);
     return res.status(200).send(paginated);
   } catch (error) {
@@ -18,7 +17,7 @@ router.get("/api/gamer", async (req, res) => {
 });
 
 // GET /api/gamer/:id
-router.get("/api/gamer/:id", async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const gamerId = req.params.id;
     const gamer = await gamerService.findOneById(gamerId);
@@ -30,7 +29,7 @@ router.get("/api/gamer/:id", async (req, res) => {
 });
 
 // POST /api/gamer
-router.post("/api/gamer", async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const newGamer = req.body;
     const gamer = await gamerService.save(newGamer);
@@ -42,7 +41,7 @@ router.post("/api/gamer", async (req, res) => {
 });
 
 // PUT /api/gamer/:id
-router.put("/api/gamer/:id", async (req, res) => {
+router.put('/:id', async (req, res) => {
   try {
     const gamerId = req.params.id;
     const updatedGamer = req.body;
@@ -55,11 +54,11 @@ router.put("/api/gamer/:id", async (req, res) => {
 });
 
 // DELETE /api/gamer/:id
-router.delete("/api/gamer/:id", async (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
     const gamerId = req.params.id;
     await gamerService.remove(gamerId);
-    return res.status(200).send("Gamer eliminado correctamente.");
+    return res.status(200).send('Gamer eliminado correctamente.');
   } catch (error) {
     console.log(error);
     return res.status(500).send(error);
