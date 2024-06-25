@@ -14,7 +14,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 
 const app = express();
-const port = process.env.PORT || 3000; // Default port to 3000 if not specified
+const port = process.env.PORT || 6000; // Default port to 3000 if not specified
 
 // Enable CORS
 app.use(cors());

@@ -6,7 +6,7 @@ const doc = {
     title: 'PIII- test',
     description: 'Aplicacion inicial de backend',
   },
-  host: 'localhost:' + process.env.PORT,
+  host: `localhost:${process.env.PORT || 3000}`,
   schemes: ['http'],
 };
 
@@ -16,4 +16,11 @@ const endpointsFiles = [
   './src/modules/gamer/gamer.routes.js'
 ];
 
-swaggerAutogen(outputFile, endpointsFiles, doc);
+swaggerAutogen(outputFile, endpointsFiles, doc)
+  .then(() => {
+    require('./swagger-output.json'); // Este paso es opcional, solo para verificar la salida
+    console.log('Swagger documentation generated successfully');
+  })
+  .catch(err => {
+    console.error('Error generating Swagger documentation', err);
+  });
