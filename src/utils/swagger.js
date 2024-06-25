@@ -13,7 +13,7 @@ const doc = {
 const outputFile = './swagger-output.json'; 
 const endpointsFiles = [
   './src/modules/user/user.routes.js',
-  './src/modules/gamer/gamer.routes.js' // Asegúrate de que esta línea esté presente
+  './src/modules/gamer/gamer.routes.js'
 ];
 
 swaggerAutogen(outputFile, endpointsFiles, doc);
