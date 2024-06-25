@@ -1,17 +1,18 @@
 const gamerModel = require("../../models/gamer");
 const pager = require("../../utils/pager");
 
-async function findOneById(_id){
+async function findOneById(_id) {
   return await gamerModel.findById(_id).populate('user').exec();
 }
 
-async function save(gamer){
+async function save(gamer) {
   let _gamer = new gamerModel(gamer);
   return await _gamer.save();
 }
 
 async function paginated(params) {
-  let perPage = params.perPage ? params.perPage : 10, page = Math.max(0, params.page);
+  let perPage = params.perPage ? parseInt(params.perPage) : 10;
+  let page = Math.max(0, params.page ? parseInt(params.page) : 0);
   let filter = params.filter ? params.filter : {};
   let sort = params.sort ? params.sort : {};
   

@@ -5,20 +5,20 @@ const doc = {
   info: {
     title: 'PIII- test',
     description: 'Aplicacion inicial de backend',
+    version: '1.0.0'
   },
   host: `localhost:${process.env.PORT || 3000}`,
   schemes: ['http'],
 };
 
-const outputFile = './swagger-output.json'; 
+const outputFile = '../../swagger-output.json'; // Ruta ajustada según tu estructura de archivos
 const endpointsFiles = [
   './src/modules/user/user.routes.js',
-  './src/modules/gamer/gamer.routes.js'
+  './src/modules/gamer/gamer.routes.js',
 ];
 
 swaggerAutogen(outputFile, endpointsFiles, doc)
   .then(() => {
-    require('./swagger-output.json'); // Este paso es opcional, solo para verificar la salida
     console.log('Swagger documentation generated successfully');
   })
   .catch(err => {

@@ -1,4 +1,3 @@
-// index.js
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
@@ -7,19 +6,15 @@ const swaggerDocument = require('./swagger-output.json');
 
 // Routers
 const usuarioRouter = require('./src/modules/user/user.routes');
-const gamerRouter = require('./src/modules/gamer/gamer.routes'); // Asegúrate de que esta línea esté presente
+const gamerRouter = require('./src/modules/gamer/gamer.routes');
 
-// Secure setup (Comment out if not using authentication)
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
 const app = express();
-const port = process.env.PORT || 6000; // Default port to 3000 if not specified
+const port = process.env.PORT || 6000;
 
-// Enable CORS
 app.use(cors());
-
-// Enable the use of request body parsing middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -29,18 +24,16 @@ mongoose.connect(process.env.BDURL, { useNewUrlParser: true, useUnifiedTopology:
   })
   .catch(err => {
     console.error('Error connecting to MongoDB:', err);
-    process.exit(1); // Exit the process if MongoDB connection fails
+    process.exit(1);
   });
 
 app.get('/', async (req, res) => {
   return res.send('Backend reclamos node js express');
 });
 
-// Routers with prefixes
 app.use('/api/user', usuarioRouter);
-app.use('/api/gamer', gamerRouter); // Asegúrate de que esta línea esté presente
+app.use('/api/gamer', gamerRouter);
 
-// CORS configuration
 app.all('*', (req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers',
@@ -51,7 +44,6 @@ app.all('*', (req, res, next) => {
   next();
 });
 
-// Swagger documentation setup
 const options = { explorer: true };
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
 
@@ -59,7 +51,6 @@ app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
 
-// Handle uncaught exceptions
 process.on('uncaughtException', (err) => {
   console.error('There was an uncaught error', err);
 });

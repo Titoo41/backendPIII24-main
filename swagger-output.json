@@ -13,9 +13,6 @@
   "paths": {
     "/api/user": {
       "get": {
-        "tags": [
-          "Usuario"
-        ],
         "description": "",
         "parameters": [
           {
@@ -34,9 +31,6 @@
         }
       },
       "post": {
-        "tags": [
-          "Usuario"
-        ],
         "description": "",
         "responses": {
           "201": {
@@ -50,9 +44,6 @@
     },
     "/api/user/{id}": {
       "get": {
-        "tags": [
-          "Usuario"
-        ],
         "description": "",
         "parameters": [
           {
@@ -72,9 +63,6 @@
         }
       },
       "put": {
-        "tags": [
-          "Usuario"
-        ],
         "description": "",
         "parameters": [
           {
@@ -94,9 +82,96 @@
         }
       },
       "delete": {
-        "tags": [
-          "Usuario"
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
         ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/gamer": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "params",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "description": "",
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/gamer/{id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
         "description": "",
         "parameters": [
           {

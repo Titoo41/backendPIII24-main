@@ -4,18 +4,31 @@ const userService = require('./user.service');
 const router = express.Router();
 
 // GET /api/user
-router.get('/', async (req, res) => {
+router.get('/api/user', async (req, res) => {
   try {
-    const params = JSON.parse(req.headers['params']);
-    let paginated = await userService.paginated(params);
+    const params = JSON.parse(req.headers['params'] || '{}');
+    const paginated = await userService.paginated(params);
     return res.status(200).send(paginated);
   } catch (error) {
     console.log(error);
     return res.status(500).send(error);
   }
 });
+
+// GET /api/user/:id
+router.get('/api/user/:id', async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const user = await userService.findOneById(userId);
+    return res.status(200).send(user);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send(error);
+  }
+});
+
 // POST /api/user
-router.post('/', async (req, res) => {
+router.post('/api/user', async (req, res) => {
   try {
     const newUser = req.body;
     const user = await userService.save(newUser);
@@ -27,7 +40,7 @@ router.post('/', async (req, res) => {
 });
 
 // PUT /api/user/:id
-router.put('/:id', async (req, res) => {
+router.put('/api/user/:id', async (req, res) => {
   try {
     const userId = req.params.id;
     const updatedUser = req.body;
@@ -40,7 +53,7 @@ router.put('/:id', async (req, res) => {
 });
 
 // DELETE /api/user/:id
-router.delete('/:id', async (req, res) => {
+router.delete('/api/user/:id', async (req, res) => {
   try {
     const userId = req.params.id;
     await userService.remove(userId);
