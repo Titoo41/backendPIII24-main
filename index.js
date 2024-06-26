@@ -1,38 +1,45 @@
-require('dotenv').config();
-const express = require('express');
-const mongoose = require('mongoose');
-const swaggerUi = require('swagger-ui-express');
+require('dotenv').config()
+const express = require('express')
+const mongoose = require("mongoose");
+const swaggerUi = require('swagger-ui-express')
 const swaggerDocument = require('./swagger-output.json');
 
-// Routers
-const usuarioRouter = require('./src/modules/user/user.routes');
-const gamerRouter = require('./src/modules/gamer/gamer.routes');
+//Routers
+const gamerRouter = require("./src/modules/gamer/gamer.routes");
+const usuarioRouter = require("./src/modules/user/user.routes");
 
+// Secure setup
+const { expressjwt: jwt } = require('express-jwt');
+const jwksRsa = require('jwks-rsa');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
-const app = express();
-const port = process.env.PORT || 6000;
+const app = express()
+const port = process.env.PORT
 
+// Enable CORS
 app.use(cors());
+
+// Enable the use of request body parsing middleware
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 
-mongoose.connect(process.env.BDURL, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => {
-    console.log('MongoDB connected');
-  })
-  .catch(err => {
-    console.error('Error connecting to MongoDB:', err);
-    process.exit(1);
-  });
-
-app.get('/', async (req, res) => {
-  return res.send('Backend reclamos node js express');
+mongoose.connect(
+  process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true }
+).then(() => {
+  console.log('Conectado a MongoDB');
+}).catch(err => {
+  console.error('Error al conectar a MongoDB', err);
 });
 
-app.use('/api/user', usuarioRouter);
-app.use('/api/gamer', gamerRouter);
+app.get("/", async (request, response) => {
+      return response.send("Beckend reclamos node js express");
+});
+// Routers
+app.use(gamerRouter);
+app.use(usuarioRouter);
 
 app.all('*', (req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
@@ -43,14 +50,10 @@ app.all('*', (req, res, next) => {
   res.header('Access-Control-Allow-Methods', 'HEAD,OPTIONS,GET,PUT,POST,DELETE');
   next();
 });
-
-const options = { explorer: true };
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
-
+var options = {
+  explorer: true
+};
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument,options))
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
-
-process.on('uncaughtException', (err) => {
-  console.error('There was an uncaught error', err);
-});
+  console.log(`Example app listening on port ${port}`)
+})

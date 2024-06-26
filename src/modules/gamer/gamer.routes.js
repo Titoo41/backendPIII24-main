@@ -1,57 +1,75 @@
-const express = require('express');
-const gamerService = require('./gamer.service');
+const express = require("express");
+const gamerService = require("./gamer.service");
+
 const router = express.Router();
 
-router.get('/api/gamer', async (req, res) => {
+// GET /api/gamer
+router.get("/api/gamer", async (req, res) => {
+  // #swagger.tags = ['Gamer']
   try {
-    const params = JSON.parse(req.headers['params'] || '{}');
-    const paginated = await gamerService.paginated(params);
+    params = JSON.parse(req.headers['params'])
+
+    let paginated = await gamerService.paginated(params)
     return res.status(200).send(paginated);
+
+  } catch (error) {
+    console.log(error)
+    return res.status(500).send(error);
+  }
+});
+
+// GET /api/gamer/:id
+router.get("/api/gamer/:id",  async (req, res) => {
+  // #swagger.tags = ['Gamer']
+  try {
+    const userId = req.params.id;
+    const user = await gamerService.findOneById(userId);
+    return res.status(200).send(user);
+
   } catch (error) {
     console.log(error);
     return res.status(500).send(error);
   }
 });
 
-router.get('/api/gamer/:id', async (req, res) => {
+// POST /api/gamer
+router.post("/api/gamer", async (req, res) => {
+  // #swagger.tags = ['Ganer']
   try {
-    const gamerId = req.params.id;
-    const gamer = await gamerService.findOneById(gamerId);
-    return res.status(200).send(gamer);
+    const newUser = req.body;
+    console.log(newUser);
+    const user = await gamerService.save(newUser);
+    return res.status(201).send(user);
+
   } catch (error) {
     console.log(error);
     return res.status(500).send(error);
   }
 });
 
-router.post('/api/gamer', async (req, res) => {
+// PUT /api/gamer/:id
+router.put("/api/gamer/:id",  async (req, res) => {
+  // #swagger.tags = ['Gamer']
   try {
-    const newGamer = req.body;
-    const gamer = await gamerService.save(newGamer);
-    return res.status(201).send(gamer);
+    const userId = req.params.id;
+    const updatedUser = req.body;
+    const user = await gamerService.update(userId, updatedUser);
+    return res.status(200).send(user);
+
   } catch (error) {
     console.log(error);
     return res.status(500).send(error);
   }
 });
 
-router.put('/api/gamer/:id', async (req, res) => {
+// DELETE /api/gamer/:id
+router.delete("/api/gamer/:id", async (req, res) => {
+  // #swagger.tags = ['Gamer']
   try {
-    const gamerId = req.params.id;
-    const updatedGamer = req.body;
-    const gamer = await gamerService.update(gamerId, updatedGamer);
-    return res.status(200).send(gamer);
-  } catch (error) {
-    console.log(error);
-    return res.status(500).send(error);
-  }
-});
+    const userId = req.params.id;
+    await gamerService.remove(userId);
+    return res.status(200).send("Usuario eliminado correctamente.");
 
-router.delete('/api/gamer/:id', async (req, res) => {
-  try {
-    const gamerId = req.params.id;
-    await gamerService.remove(gamerId);
-    return res.status(200).send('Gamer eliminado correctamente.');
   } catch (error) {
     console.log(error);
     return res.status(500).send(error);

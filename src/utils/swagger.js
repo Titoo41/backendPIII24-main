@@ -1,26 +1,21 @@
 const swaggerAutogen = require('swagger-autogen')();
-require('dotenv').config();
-
+require('dotenv').config()
 const doc = {
+  
   info: {
     title: 'PIII- test',
     description: 'Aplicacion inicial de backend',
-    version: '1.0.0'
   },
-  host: `localhost:${process.env.PORT || 3000}`,
-  schemes: ['http'],
+   host: 'localhost:'+process.env.PORT
 };
 
-const outputFile = '../../swagger-output.json'; // Ruta ajustada según tu estructura de archivos
-const endpointsFiles = [
-  './src/modules/user/user.routes.js',
-  './src/modules/gamer/gamer.routes.js',
+const outputFile = '../../swagger-output.json';
+const routes = [
+  
+
+  "src/modules/gamer/gamer.routes.js",
+  "src/modules/user/user.routes.js",
 ];
 
-swaggerAutogen(outputFile, endpointsFiles, doc)
-  .then(() => {
-    console.log('Swagger documentation generated successfully');
-  })
-  .catch(err => {
-    console.error('Error generating Swagger documentation', err);
-  });
+swaggerAutogen(outputFile, routes, doc);
+
