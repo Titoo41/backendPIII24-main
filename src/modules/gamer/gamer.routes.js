@@ -34,7 +34,7 @@ router.get("/api/gamer/:id",  async (req, res) => {
 
 // POST /api/gamer
 router.post("/api/gamer", async (req, res) => {
-  // #swagger.tags = ['Ganer']
+  // #swagger.tags = ['Gamer']
   try {
     const newUser = req.body;
     console.log(newUser);
