@@ -13,9 +13,6 @@
   "paths": {
     "/api/gamer": {
       "get": {
-        "tags": [
-          "Gamer"
-        ],
         "description": "",
         "parameters": [
           {
@@ -34,9 +31,6 @@
         }
       },
       "post": {
-        "tags": [
-          "Gamer"
-        ],
         "description": "",
         "responses": {
           "201": {
@@ -50,9 +44,6 @@
     },
     "/api/gamer/{id}": {
       "get": {
-        "tags": [
-          "Gamer"
-        ],
         "description": "",
         "parameters": [
           {
@@ -72,9 +63,6 @@
         }
       },
       "put": {
-        "tags": [
-          "Gamer"
-        ],
         "description": "",
         "parameters": [
           {
@@ -94,9 +82,6 @@
         }
       },
       "delete": {
-        "tags": [
-          "Gamer"
-        ],
         "description": "",
         "parameters": [
           {
