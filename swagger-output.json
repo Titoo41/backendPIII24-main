@@ -103,9 +103,6 @@
     },
     "/api/user": {
       "get": {
-        "tags": [
-          "Usuario"
-        ],
         "description": "",
         "parameters": [
           {
@@ -124,9 +121,6 @@
         }
       },
       "post": {
-        "tags": [
-          "Usuario"
-        ],
         "description": "",
         "responses": {
           "201": {
@@ -140,9 +134,6 @@
     },
     "/api/user/{id}": {
       "get": {
-        "tags": [
-          "Usuario"
-        ],
         "description": "",
         "parameters": [
           {
@@ -162,9 +153,6 @@
         }
       },
       "put": {
-        "tags": [
-          "Usuario"
-        ],
         "description": "",
         "parameters": [
           {
@@ -184,9 +172,6 @@
         }
       },
       "delete": {
-        "tags": [
-          "Usuario"
-        ],
         "description": "",
         "parameters": [
           {
